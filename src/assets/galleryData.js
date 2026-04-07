@@ -21,6 +21,25 @@ import g19 from './gallery/gallery19.jpg';
 import g20 from './gallery/gallery20.jpg';
 import g21 from './gallery/gallery21.jpg';
 
+// Hero slideshow configuration - EDIT THESE TO CUSTOMIZE
+export const heroSlides = [
+  {
+    title: 'Wedding',
+    subtitle: 'Capturing Love',
+    image: g1,  
+  },
+  {
+    title: 'Birthday',
+    subtitle: 'Celebrating Life',
+    image: g2,
+  },
+  {
+    title: 'Headshots',
+    subtitle: 'Professional Portraits',
+    image: g3,
+  },
+];
+
 export const galleryImages = [
   { id: 1, src: g1 },
   { id: 2, src: g2 },
