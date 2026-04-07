@@ -121,11 +121,11 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
+          <li><ThemeToggle /></li>
         </ul>
 
-        {/* Right side: Theme Toggle + Hamburger */}
+        {/* Right side: Hamburger */}
         <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="flex h-10 w-10 flex-col items-center justify-center gap-[5px]"
@@ -190,7 +190,7 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <div className="mt-auto flex flex-col gap-6">
+          <div className="mt-auto flex flex-col gap-6 pb-6">
             <Link
               to="/contact"
               onClick={(e) => handleNavLinkClick(e, '/contact')}

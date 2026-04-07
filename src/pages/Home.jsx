@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import OLogo from '/O.png';
 import { galleryImages, heroSlides } from '../assets/galleryData';
 
 const socialLinks = [
@@ -195,6 +196,11 @@ const Home = () => {
 
       {/* Hero Section added here */}
       <Hero />
+
+      {/* Centered O Logo */}
+      <div className="flex justify-center py-6 bg-white dark:bg-black">
+        <img src={OLogo} alt="Mayor Shots" className="h-12 sm:h-14 md:h-16 w-auto" />
+      </div>
 
       {/* Gallery Grid - smaller images */}
       <div id="gallery" className="py-1 px-4 sm:px-6 lg:px-8 xl:px-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
