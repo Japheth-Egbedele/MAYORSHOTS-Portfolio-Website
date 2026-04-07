@@ -4,10 +4,13 @@ import Footer from '../components/Footer';
 import { galleryImages } from '../assets/galleryData';
 import heroImage from '../assets/gallery/hero.jpg';
 
-// You can move this to its own file later
 const Hero = () => {
+  const scrollToGallery = () => {
+    document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-neutral-900 dark:bg-black">
+    <div className="relative h-[85vh] md:h-screen w-full overflow-hidden bg-neutral-900 dark:bg-black">
       {/* Background Image */}
       <img
         src={heroImage}
@@ -19,7 +22,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/40 dark:from-black/20 dark:to-black/60" />
 
       {/* Content Container */}
-      <div className="relative h-full flex flex-col justify-end pb-20 px-6 lg:px-12 text-white">
+      <div className="relative h-full flex flex-col justify-end pb-12 px-6 lg:px-12 text-white">
 
         {/* Main Text & Button Wrapper */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-8">
@@ -37,7 +40,10 @@ const Hero = () => {
           </div>
 
           {/* Ghost Button */}
-          <button className="w-fit border border-white/60 dark:border-white/50 px-10 py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-sm">
+          <button
+            onClick={scrollToGallery}
+            className="w-fit border border-white/60 dark:border-white/50 px-10 py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-sm"
+          >
             View Gallery
           </button>
         </div>
@@ -78,7 +84,7 @@ const Home = () => {
       <Hero />
 
       {/* Gallery Grid */}
-      <div className="py-1 px-4 sm:px-6 lg:px-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div id="gallery" className="py-1 px-4 sm:px-6 lg:px-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {galleryImages.map((image, index) => (
           <div
             key={image.id}
