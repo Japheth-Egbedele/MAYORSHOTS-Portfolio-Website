@@ -5,7 +5,7 @@ const Footer = () => (
       <div className="flex justify-center items-center gap-5 mb-6">
         {/* Email */}
         <a
-          href="mailto:okeoluwamayokun2@gamil.com"
+          href="mailto:okeoluwamayokun2@gmail.com"
           className="text-gray-500 dark:text-gray-500 hover:text-red-600 transition-all duration-300 hover:-translate-y-0.5"
           aria-label="Email"
         >
@@ -59,11 +59,23 @@ const Footer = () => (
         Capturing moments that tell a story
       </p>
 
-      {/* Copyright */}
-      <p className="text-center text-[10px] uppercase tracking-widest text-gray-400">
-        {new Date().getFullYear()} Mayor Shots Photography.
-      </p>
+      {/* Copyright & Dev Signature */}
+      <div className="flex flex-col items-center gap-2">
+        <p className="text-center text-[10px] uppercase tracking-widest text-gray-400">
+          {new Date().getFullYear()} Mayor Shots Photography.
+        </p>
+        
+        <a 
+          href="https://japheth-egbedele.vercel.app/" 
+          target="_blank" 
+          rel="noreferrer" 
+          className="text-[9px] tracking-tight text-gray-400/50 hover:text-red-600 transition-colors duration-300"
+        >
+          Design & Dev by JOE
+        </a>
+      </div>
     </div>
   </footer>
 );
+
 export default Footer;
