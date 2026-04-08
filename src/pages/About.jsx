@@ -16,11 +16,10 @@ const About = () => (
         Oluwamayokun Oke
       </h1>
       <p className="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 font-light tracking-widest uppercase mb-8">
-        Photographer
+        Photographer & Videographer
       </p>
       <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base sm:text-lg">
-        I am a visual storyteller dedicated to documenting the moments that define us. Specializing in weddings, corporate functions, and portraits, my work is driven by a commitment to authenticity and precision. From the boardroom to the ballroom, I capture the moments that matter most, providing professional multimedia services tailored to your unique story.
-      </p>
+       I am a visual storyteller based in Lagos, Nigeria, dedicated to documenting the memories that tell a story. Specializing in weddings, corporate functions, and portraits, my work is driven by a commitment to authenticity and precision. From the boardroom to the ballroom, I capture the memories that matter most, providing professional multimedia services tailored to your unique story.      </p>
       <Link
         to="/contact"
         className="inline-flex items-center justify-center mt-10 px-10 py-4 rounded-full border border-black dark:border-white text-sm font-bold tracking-[0.2em] text-black dark:text-white uppercase hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all active:scale-95"

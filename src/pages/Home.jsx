@@ -198,8 +198,8 @@ const Home = () => {
       <Hero />
 
       {/* Centered O Logo */}
-      <div className="flex justify-center py-6 bg-white dark:bg-black">
-        <img src={OLogo} alt="Mayor Shots" className="h-12 sm:h-14 md:h-16 w-auto" />
+      <div className="flex justify-center items-center py-12 sm:py-10 md:py-15 bg-white dark:bg-black">
+        <img src={OLogo} alt="Mayor Shots" className="h-12 sm:h-14 md:h-20 w-auto mx-auto" />
       </div>
 
       {/* Gallery Grid - smaller images */}

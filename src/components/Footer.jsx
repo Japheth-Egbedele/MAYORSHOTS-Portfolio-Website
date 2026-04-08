@@ -54,6 +54,11 @@ const Footer = () => (
         </a>
       </div>
 
+      {/* Motto */}
+      <p className="text-center text-xs font-light italic tracking-wide text-gray-400 dark:text-gray-500 mb-4">
+        Capturing moments that tell a story
+      </p>
+
       {/* Copyright */}
       <p className="text-center text-[10px] uppercase tracking-widest text-gray-400">
         {new Date().getFullYear()} Mayor Shots Photography.
