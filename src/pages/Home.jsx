@@ -1,8 +1,15 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import OLogo from '/O.png';
 import { galleryImages, heroSlides } from '../assets/galleryData';
+
+const filterPills = [
+  { id: 'all', label: 'All' },
+  { id: 'portraits', label: 'Portraits' },
+  { id: 'headshots', label: 'Headshots' },
+  { id: 'events', label: 'Events' },
+];
 
 const socialLinks = [
   { label: 'Instagram', href: 'https://www.instagram.com/mayorshots?igsh=YnI0MXZxMDg1ZWNo' },
@@ -97,6 +104,7 @@ const Hero = () => {
 
 const Home = () => {
   const observerRef = useRef(null);
+  const [activeFilter, setActiveFilter] = useState('all');
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [likedImages, setLikedImages] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -105,6 +113,16 @@ const Home = () => {
     }
     return [];
   });
+
+  const filteredImages = useMemo(() => {
+    if (activeFilter === 'all') return galleryImages;
+    return galleryImages.filter((img) => img.category === activeFilter);
+  }, [activeFilter]);
+
+  const handleFilterChange = useCallback((filterId) => {
+    setActiveFilter(filterId);
+    setSelectedIndex(null);
+  }, []);
 
   // Persist liked images to localStorage
   useEffect(() => {
@@ -125,18 +143,21 @@ const Home = () => {
     );
 
     const images = document.querySelectorAll('.slide-up-image');
-    images.forEach((img) => observerRef.current.observe(img));
+    images.forEach((img) => {
+      img.classList.remove('slide-up-visible');
+      observerRef.current.observe(img);
+    });
 
     return () => {
       if (observerRef.current) observerRef.current.disconnect();
     };
-  }, []);
+  }, [activeFilter, filteredImages.length]);
 
   const handleNext = useCallback(() => {
-    if (selectedIndex !== null && selectedIndex < galleryImages.length - 1) {
+    if (selectedIndex !== null && selectedIndex < filteredImages.length - 1) {
       setSelectedIndex(selectedIndex + 1);
     }
-  }, [selectedIndex]);
+  }, [selectedIndex, filteredImages.length]);
 
   const handlePrev = useCallback(() => {
     if (selectedIndex !== null && selectedIndex > 0) {
@@ -188,7 +209,8 @@ const Home = () => {
     document.body.removeChild(link);
   }, []);
 
-  const isLiked = selectedIndex !== null && likedImages.includes(galleryImages[selectedIndex]?.id);
+  const selectedImage = selectedIndex !== null ? filteredImages[selectedIndex] : null;
+  const isLiked = selectedImage !== null && likedImages.includes(selectedImage.id);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white">
@@ -197,14 +219,33 @@ const Home = () => {
       {/* Hero Section added here */}
       <Hero />
 
-      {/* Centered O Logo */}
-      <div className="flex justify-center items-center py-12 sm:py-10 md:py-15 bg-white dark:bg-black">
+      {/* Centered O Logo + Category Pills */}
+      <div className="flex flex-col items-center gap-6 sm:gap-8 py-12 sm:py-10 md:py-15 pb-4 bg-white dark:bg-black">
         <img src={OLogo} alt="Mayor Shots" className="h-12 sm:h-14 md:h-20 w-auto mx-auto" />
+        <nav
+          className="flex flex-wrap justify-center gap-6 sm:gap-8"
+          aria-label="Gallery categories"
+        >
+          {filterPills.map((pill) => (
+            <button
+              key={pill.id}
+              type="button"
+              onClick={() => handleFilterChange(pill.id)}
+              className={`text-[10px] tracking-[0.2em] uppercase transition-colors ${
+                activeFilter === pill.id
+                  ? 'text-red-600 dark:text-red-500 font-medium'
+                  : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'
+              }`}
+            >
+              {pill.label}
+            </button>
+          ))}
+        </nav>
       </div>
 
       {/* Gallery Grid - smaller images */}
       <div id="gallery" className="py-1 px-4 sm:px-6 lg:px-8 xl:px-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-        {galleryImages.map((image, index) => (
+        {filteredImages.map((image, index) => (
           <div
             key={image.id}
             className="slide-up-image overflow-hidden rounded-sm opacity-0 translate-y-12 transition-all duration-1000 ease-out cursor-pointer group"
@@ -221,7 +262,7 @@ const Home = () => {
       </div>
 
       {/* Lightbox Modal */}
-      {selectedIndex !== null && (
+      {selectedIndex !== null && selectedImage && (
         <div
           className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-sm"
           onClick={handleClose}
@@ -251,7 +292,7 @@ const Home = () => {
           )}
 
           {/* Next Button */}
-          {selectedIndex < galleryImages.length - 1 && (
+          {selectedIndex < filteredImages.length - 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); handleNext(); }}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 text-white/60 hover:text-white transition-colors"
@@ -269,8 +310,8 @@ const Home = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src={galleryImages[selectedIndex].src}
-              alt={`Gallery image ${galleryImages[selectedIndex].id}`}
+              src={selectedImage.src}
+              alt={`Gallery image ${selectedImage.id}`}
               className="max-w-full max-h-[85vh] w-auto h-auto object-contain"
             />
           </div>
@@ -284,7 +325,7 @@ const Home = () => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                toggleLike(galleryImages[selectedIndex].id);
+                toggleLike(selectedImage.id);
               }}
               className={`p-2 transition-colors ${isLiked ? 'text-red-500' : 'text-white/60 hover:text-white'}`}
               aria-label={isLiked ? 'Unlike' : 'Like'}
@@ -298,7 +339,7 @@ const Home = () => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                handleDownload(galleryImages[selectedIndex].src, e);
+                handleDownload(selectedImage.src, e);
               }}
               className="p-2 text-white/60 hover:text-white transition-colors"
               aria-label="Download"
