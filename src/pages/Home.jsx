@@ -51,8 +51,8 @@ const Hero = () => {
 
       {/* Content Container */}
       <div className="relative h-full flex flex-col justify-end pb-12 px-6 lg:px-12 text-white">
-        {/* Slide Indicators */}
-        <div className="absolute top-1/2 left-6 lg:left-12 -translate-y-1/2 flex flex-col gap-2">
+        {/* Desktop: indicators centered on viewport */}
+        <div className="absolute top-1/2 left-6 lg:left-12 hidden -translate-y-1/2 flex-col gap-2 md:flex">
           {heroSlides.map((_, index) => (
             <button
               key={index}
@@ -63,18 +63,31 @@ const Hero = () => {
           ))}
         </div>
 
-        {/* Main Content */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-8">
-          <div className="space-y-4">
-            <p className="text-[10px] tracking-[0.4em] uppercase font-light opacity-90">
-              {heroSlides[currentSlide].subtitle}
-            </p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-[0.15em] uppercase leading-tight drop-shadow-lg transition-all duration-500">
-              {heroSlides[currentSlide].title}
-            </h1>
+        <div className="flex items-center gap-4 sm:gap-5 min-w-0 md:block md:pl-10 lg:pl-12">
+          {/* Mobile: indicators beside content so nothing overlaps */}
+          <div className="flex shrink-0 flex-col gap-2 self-center md:hidden">
+            {heroSlides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-1 h-8 transition-all duration-300 ${index === currentSlide ? 'bg-white' : 'bg-white/30 hover:bg-white/50'}`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
           </div>
 
-          <div className="flex flex-col items-end gap-4">
+          {/* Main Content */}
+          <div className="flex min-w-0 flex-1 flex-col md:flex-row md:justify-between md:items-end gap-6 sm:gap-8">
+            <div className="min-w-0 space-y-3 sm:space-y-4">
+              <p className="text-[10px] tracking-[0.25em] sm:tracking-[0.4em] uppercase font-light opacity-90">
+                {heroSlides[currentSlide].subtitle}
+              </p>
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-[0.1em] sm:tracking-[0.15em] uppercase leading-tight drop-shadow-lg transition-all duration-500">
+                {heroSlides[currentSlide].title}
+              </h1>
+            </div>
+
+            <div className="flex flex-col items-start gap-4 md:items-end">
             {/* Social Links */}
             <div className="flex items-center gap-4 mb-2">
               {socialLinks.map((social) => (
@@ -95,6 +108,7 @@ const Hero = () => {
             >
               View Gallery
             </button>
+            </div>
           </div>
         </div>
       </div>
