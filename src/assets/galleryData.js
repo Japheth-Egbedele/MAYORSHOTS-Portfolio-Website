@@ -26,6 +26,23 @@ import g24 from './gallery/gallery24.jpg';
 import g25 from './gallery/gallery25.jpg';
 import g26 from './gallery/gallery26.jpg';
 import g27 from './gallery/gallery27.jpg';
+import g28 from './gallery/gallery28.png';
+import g29 from './gallery/gallery29.png';
+import g30 from './gallery/gallery30.jpg';
+import g31 from './gallery/gallery31.png';
+import g32 from './gallery/gallery32.png';
+import g33 from './gallery/gallery33.png';
+import g34 from './gallery/gallery34.png';
+import g35 from './gallery/gallery35.png';
+import g36 from './gallery/gallery36.png';
+import g37 from './gallery/gallery37.png';
+import g38 from './gallery/gallery38.png';
+import g39 from './gallery/gallery39.png';
+import g40 from './gallery/gallery40.png';
+import g41 from './gallery/gallery41.png';
+import g42 from './gallery/gallery42.png';
+import g43 from './gallery/gallery43.png';
+import g44 from './gallery/gallery44.png';
 
 export const CATEGORIES = {
   PORTRAITS: 'portraits',
@@ -38,7 +55,7 @@ export const heroSlides = [
   {
     title: 'Events',
     subtitle: 'Celebrations & Occasions',
-    image: g1,
+    image: g36,
   },
   {
     title: 'Portraits',
@@ -48,7 +65,7 @@ export const heroSlides = [
   {
     title: 'Headshots',
     subtitle: 'Professional & Polished',
-    image: g3,
+    image: g9,
   },
 ];
 
@@ -80,4 +97,21 @@ export const galleryImages = [
   { id: 25, src: g25, category: CATEGORIES.HEADSHOTS },
   { id: 26, src: g26, category: CATEGORIES.HEADSHOTS },
   { id: 27, src: g27, category: CATEGORIES.HEADSHOTS },
+  { id: 28, src: g28, category: CATEGORIES.EVENTS },
+  { id: 29, src: g29, category: CATEGORIES.EVENTS },
+  { id: 30, src: g30, category: CATEGORIES.EVENTS },
+  { id: 31, src: g31, category: CATEGORIES.EVENTS },
+  { id: 32, src: g32, category: CATEGORIES.EVENTS },
+  { id: 33, src: g33, category: CATEGORIES.EVENTS },
+  { id: 34, src: g34, category: CATEGORIES.EVENTS },
+  { id: 35, src: g35, category: CATEGORIES.EVENTS },
+  { id: 36, src: g36, category: CATEGORIES.EVENTS },
+  { id: 37, src: g37, category: CATEGORIES.EVENTS },
+  { id: 38, src: g38, category: CATEGORIES.EVENTS },
+  { id: 39, src: g39, category: CATEGORIES.EVENTS },
+  { id: 40, src: g40, category: CATEGORIES.EVENTS },
+  { id: 41, src: g41, category: CATEGORIES.EVENTS },
+  { id: 42, src: g42, category: CATEGORIES.EVENTS },
+  { id: 43, src: g43, category: CATEGORIES.EVENTS },
+  { id: 44, src: g44, category: CATEGORIES.EVENTS },
 ];

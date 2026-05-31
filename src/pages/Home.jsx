@@ -6,9 +6,9 @@ import { galleryImages, heroSlides } from '../assets/galleryData';
 
 const filterPills = [
   { id: 'all', label: 'All' },
+  { id: 'events', label: 'Events' },
   { id: 'portraits', label: 'Portraits' },
   { id: 'headshots', label: 'Headshots' },
-  { id: 'events', label: 'Events' },
 ];
 
 const socialLinks = [
@@ -38,19 +38,49 @@ const Hero = () => {
           key={slide.title}
           className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
         >
-          <img
-            src={slide.image}
-            className="absolute inset-0 w-full h-full object-cover opacity-90 dark:opacity-80"
-            alt={slide.title}
-          />
+          {/* Soft blurred fill for letterbox areas */}
+          <div className="absolute inset-0 overflow-hidden" aria-hidden>
+            <img
+              src={slide.image}
+              alt=""
+              className="h-full w-full scale-125 object-cover object-center blur-3xl opacity-60 saturate-125"
+            />
+            <div className="absolute inset-0 bg-black/55" />
+          </div>
+
+          {/* Full photo, always in frame */}
+          <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-8">
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className={`max-h-full max-w-full object-contain drop-shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-transform duration-[6000ms] ease-out ${
+                index === currentSlide ? 'scale-[1.02]' : 'scale-100'
+              }`}
+            />
+          </div>
         </div>
       ))}
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/40 dark:from-black/20 dark:to-black/60" />
+      {/* Overlay — stronger at bottom for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/75 pointer-events-none" />
 
       {/* Content Container */}
-      <div className="relative h-full flex flex-col justify-end pb-12 px-6 lg:px-12 text-white">
+      <div className="relative h-full flex flex-col justify-end pb-10 sm:pb-12 px-6 lg:px-12 text-white">
+        {/* Social links — top-right, away from title/CTA */}
+        <div className="absolute top-24 sm:top-28 right-6 lg:right-12 flex items-center gap-5 sm:gap-6">
+          {socialLinks.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-white/50 hover:text-white transition-colors"
+            >
+              {social.label}
+            </a>
+          ))}
+        </div>
+
         {/* Desktop: indicators centered on viewport */}
         <div className="absolute top-1/2 left-6 lg:left-12 hidden -translate-y-1/2 flex-col gap-2 md:flex">
           {heroSlides.map((_, index) => (
@@ -76,8 +106,8 @@ const Hero = () => {
             ))}
           </div>
 
-          {/* Main Content */}
-          <div className="flex min-w-0 flex-1 flex-col md:flex-row md:justify-between md:items-end gap-6 sm:gap-8">
+          {/* Main Content — title and CTA only */}
+          <div className="flex min-w-0 flex-1 flex-col sm:flex-row sm:justify-between sm:items-end gap-8 sm:gap-10">
             <div className="min-w-0 space-y-3 sm:space-y-4">
               <p className="text-[10px] tracking-[0.25em] sm:tracking-[0.4em] uppercase font-light opacity-90">
                 {heroSlides[currentSlide].subtitle}
@@ -87,28 +117,12 @@ const Hero = () => {
               </h1>
             </div>
 
-            <div className="flex flex-col items-start gap-4 md:items-end">
-            {/* Social Links */}
-            <div className="flex items-center gap-4 mb-2">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] tracking-[0.2em] uppercase text-white/70 hover:text-white transition-colors"
-                >
-                  {social.label}
-                </a>
-              ))}
-            </div>
             <button
               onClick={scrollToGallery}
-              className="w-fit border border-white/60 dark:border-white/50 px-10 py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-sm"
+              className="w-fit shrink-0 border border-white/60 dark:border-white/50 px-8 sm:px-10 py-3.5 sm:py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-sm"
             >
               View Gallery
             </button>
-            </div>
           </div>
         </div>
       </div>
